@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>O Dia Seguinte | Amanda Fernandes</title>
+<meta name="description" content="Entre o fim de um ciclo e a construção do próximo. O Dia Seguinte é um e-book de desenvolvimento humano para momentos de transição profissional.">
+<meta property="og:title" content="O Dia Seguinte | Amanda Fernandes">
+<meta property="og:description" content="Entre o fim de um ciclo e a construção do próximo.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Montserrat:wght@300;400;500;600&family=Allura&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --az:#0B132B;--mn:#1C2A44;--gr:#4A4F5C;
+  --gl:#E7E9EE;--mg:#C03A7B;--rs:#F7D9E6;--of:#FAFAFA;
+  --nav:58px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat',sans-serif;background:var(--of);color:var(--az);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+img{display:block;max-width:100%}
+.fu{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.fu.v{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.fu{opacity:1;transform:none;transition:none}}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:var(--nav);display:flex;align-items:center;justify-content:space-between;
+  padding:0 5vw;background:var(--az);
+}
+.nb{font-family:'Playfair Display',serif;font-size:.88rem;color:var(--of)}
+.nb em{color:var(--mg);font-style:normal}
+.nl{display:flex;gap:1.8rem;align-items:center}
+.nl a{font-size:.65rem;font-weight:400;letter-spacing:.1em;color:rgba(255,255,255,.42);text-transform:uppercase;transition:color .2s}
+.nl a:hover{color:var(--of)}
+.nc{background:var(--mg)!important;color:#fff!important;padding:.44rem 1.1rem;transition:background .2s}
+.nc:hover{background:#a02f68!important}
+.hb{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hb span{display:block;width:20px;height:1.5px;background:var(--of);transition:.25s}
+.hb.o span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.hb.o span:nth-child(2){opacity:0}
+.hb.o span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+.mm{display:none;position:fixed;top:var(--nav);left:0;right:0;background:var(--az);z-index:199;flex-direction:column;padding:1.5rem 5vw}
+.mm.o{display:flex}
+.mm a{font-size:.82rem;color:rgba(255,255,255,.6);padding:.82rem 0;border-bottom:1px solid rgba(255,255,255,.05);letter-spacing:.08em;text-transform:uppercase}
+.mm a:last-child{border:none;color:var(--mg);font-weight:600}
+
+/* ════════════════════════════════════════════
+   HERO
+   Composição horizontal única — como a referência:
+   fundo azul-noite + 3 zonas (esq / centro / dir)
+   A porta SVG ocupa toda a coluna direita como
+   elemento de fundo contínuo
+════════════════════════════════════════════ */
+#hero{
+  background:var(--az);
+  padding-top:var(--nav);
+  min-height:calc(100vh - var(--nav));
+  display:grid;
+  grid-template-columns:40fr 20fr 40fr;
+  position:relative;
+  overflow:hidden;
+}
+
+/* Porta SVG — coluna direita, posicionada absolutamente
+   mas restrita ao grid-column 3 via wrapper */
+.h-door{
+  position:relative;
+  overflow:hidden;
+}
+.h-door-txt{
+  position:absolute;top:10%;right:8%;
+  text-align:right;z-index:3;
+}
+.h-door-txt span{
+  display:block;
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(.42rem,.52vw,.58rem);
+  font-weight:500;letter-spacing:.16em;
+  color:rgba(255,255,255,.5);text-transform:uppercase;line-height:2.1;
+}
+.h-door-fq{
+  position:absolute;bottom:9%;right:7%;
+  text-align:right;z-index:3;max-width:175px;
+}
+.h-door-fq p{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(.64rem,.76vw,.84rem);
+  color:rgba(255,255,255,.72);line-height:1.65;
+}
+.h-door-fq p+p{margin-top:.8rem}
+
+/* Coluna A — título + autora */
+.h-a{
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding:3.5rem 2.5rem 3.2rem 5vw;
+  position:relative;z-index:2;
+}
+.h-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(4.8rem,8.2vw,11rem);
+  font-weight:900;color:var(--of);
+  line-height:.86;letter-spacing:-.028em;
+  text-transform:uppercase;margin-bottom:.9rem;
+}
+.h-line{height:2px;background:var(--mg);width:52%;margin-bottom:1rem}
+.h-sub{
+  font-size:clamp(.78rem,1vw,.94rem);
+  color:rgba(255,255,255,.78);line-height:1.6;font-weight:300;max-width:26ch;
+}
+.h-cta{margin-top:1.8rem}
+.h-author{margin-top:auto;padding-top:1.8rem}
+.h-aname{font-size:.62rem;font-weight:600;letter-spacing:.17em;color:var(--of);text-transform:uppercase;margin-bottom:.2rem}
+.h-arole{font-size:.56rem;color:rgba(255,255,255,.34);line-height:1.7}
+
+/* Coluna B — PAUSA/REFLEXÃO/... + texto */
+.h-b{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:3.5rem 2rem;
+  border-left:1px solid rgba(255,255,255,.07);
+  position:relative;z-index:2;
+}
+.h-kw{display:flex;flex-direction:column;gap:.48rem;margin-bottom:1.8rem}
+.h-kw li{font-size:.52rem;font-weight:400;letter-spacing:.22em;color:rgba(255,255,255,.4);text-transform:uppercase}
+.h-kw-line{height:1.5px;background:var(--mg);width:28px;margin-bottom:1.4rem;opacity:.7}
+.h-kw-txt{font-size:.65rem;color:rgba(255,255,255,.52);line-height:1.9;font-weight:300;max-width:20ch}
+
+/* ── BOTÕES ── */
+.btn{
+  font-family:'Montserrat',sans-serif;font-size:.72rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;
+  display:inline-block;text-decoration:none;transition:background .2s;
+}
+.bm{background:var(--mg);color:#fff;padding:.84rem 2.2rem}
+.bm:hover{background:#a02f68}
+.bml{padding:1.05rem 3rem;font-size:.76rem}
+.bc{background:transparent;color:var(--az);border:1.5px solid rgba(11,19,43,.25);padding:.84rem 2.2rem;transition:border-color .2s,color .2s}
+.bc:hover{border-color:var(--mg);color:var(--mg)}
+
+/* ── SEÇÃO ── */
+.s{padding:7rem 5vw}
+.ss{padding:5rem 5vw}
+.sl{font-size:.56rem;font-weight:600;letter-spacing:.18em;color:var(--mg);text-transform:uppercase;margin-bottom:1rem}
+.st{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3.2vw,3rem);font-weight:700;line-height:1.1;margin-bottom:1.2rem;max-width:24ch}
+.sb{font-size:.88rem;color:var(--gr);line-height:1.9;font-weight:300;max-width:52ch}
+
+/* ════════════════
+   O LIVRO — porta reutilizada à esquerda
+════════════════ */
+#livro{background:var(--of)}
+.lg{display:grid;grid-template-columns:1fr 1.18fr;gap:0;align-items:stretch;margin-top:3.5rem;min-height:480px}
+.lg-door{
+  position:relative;overflow:hidden;
+  filter:drop-shadow(8px 0 32px rgba(11,19,43,.18));
+}
+.lq{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:clamp(.98rem,1.35vw,1.18rem);color:var(--az);line-height:1.55;
+  margin:2.2rem 0;padding-left:1.4rem;border-left:2px solid var(--mg);max-width:36ch;
+}
+.lg-txt{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:3.5rem 3.5rem 3.5rem 4rem;
+}
+
+/* ════════════════
+   PARA QUEM É — grid harmonioso
+════════════════ */
+#para-quem{background:var(--az)}
+#para-quem .st{color:var(--of)}
+.pql{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:3.5rem}
+.pql-full{grid-column:1/3}
+.pqi{
+  padding:2rem 3rem 2rem 0;border-bottom:1px solid rgba(255,255,255,.06);
+  display:flex;gap:1.8rem;align-items:flex-start;
+}
+.pqi:last-child{border-bottom:none}
+.pqn{
+  font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;
+  color:rgba(192,58,123,.18);line-height:1;flex-shrink:0;min-width:56px;
+  transition:color .25s;
+}
+.pqi:hover .pqn{color:rgba(192,58,123,.45)}
+.pqt{font-size:.86rem;color:rgba(255,255,255,.68);line-height:1.75;font-weight:300;padding-top:.35rem}
+
+/* ════════════════
+   CAPÍTULOS — grid 2 col coeso
+════════════════ */
+#capitulos{background:var(--of)}
+.cap-header{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-bottom:3.5rem}
+.cap-intro{font-size:.82rem;color:var(--gr);line-height:1.85;font-weight:300;padding-top:.5rem}
+.cil{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(11,19,43,.3);padding:1rem 0;border-bottom:1px solid var(--gl)}
+.cap-grid{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--gl)}
+.ci{
+  padding:2rem 2rem 2rem 0;border-bottom:1px solid var(--gl);border-right:1px solid var(--gl);
+  display:flex;gap:1.4rem;align-items:flex-start;
+}
+.ci:nth-child(even){border-right:none;padding-left:2rem;padding-right:0}
+.ci:nth-last-child(-n+2){border-bottom:none}
+.cin{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:rgba(192,58,123,.18);line-height:1;flex-shrink:0;min-width:40px;text-align:right;transition:color .25s;padding-top:.1rem}
+.ci:hover .cin{color:rgba(192,58,123,.5)}
+.cit{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:600;color:var(--az);margin-bottom:.3rem;line-height:1.3}
+.cid{font-size:.74rem;color:var(--gr);line-height:1.72;font-weight:300}
+.cfl{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(11,19,43,.3);padding:1rem 0;border-top:1px solid var(--gl)}
+
+/* ════════════════
+   TRECHOS
+════════════════ */
+#trechos{background:var(--az);padding:0}
+.tr{padding:5.5rem 5vw;border-bottom:1px solid rgba(255,255,255,.05)}
+.tr:nth-child(even){background:var(--mn)}
+.trs{font-size:.52rem;font-weight:600;letter-spacing:.2em;color:var(--mg);text-transform:uppercase;margin-bottom:1.4rem}
+.trf{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.45rem,3vw,2.7rem);font-weight:400;color:var(--of);line-height:1.3;max-width:800px}
+.trf em{color:var(--mg);font-style:normal}
+
+/* ════════════════
+   EU LEVO / DESENVOLVO / DEIXO
+════════════════ */
+#autoconhecimento{background:var(--of)}
+.ldg{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:4rem}
+.ldc{padding:3.5rem 2.5rem;border-right:1px solid var(--gl)}
+.ldc:last-child{border-right:none}
+.ldtag{font-size:.52rem;font-weight:700;letter-spacing:.22em;color:var(--mg);text-transform:uppercase;margin-bottom:1.4rem;display:block}
+.ldh{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--az);line-height:1.2;margin-bottom:.9rem}
+.ldb{font-size:.82rem;color:var(--gr);line-height:1.85;font-weight:300}
+
+/* ════════════════
+   EXERCÍCIOS
+════════════════ */
+#exercicios{background:var(--az)}
+.exg{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin-top:4rem}
+.exb{padding:3rem 2.5rem;border-bottom:1px solid rgba(255,255,255,.05);border-right:1px solid rgba(255,255,255,.05)}
+.exb:nth-child(even){border-right:none}
+.exb:nth-last-child(-n+2){border-bottom:none}
+.excat{font-size:.5rem;font-weight:700;letter-spacing:.2em;color:var(--mg);text-transform:uppercase;margin-bottom:1.3rem;display:block}
+.exqs{display:flex;flex-direction:column;gap:.9rem}
+.exq{font-family:'Playfair Display',serif;font-style:italic;font-size:.85rem;color:rgba(255,255,255,.62);line-height:1.55;padding-left:1rem;border-left:1px solid rgba(192,58,123,.28)}
+
+/* ════════════════
+   COMPETÊNCIAS
+════════════════ */
+#futuro{background:var(--gl)}
+.ci2{font-size:.88rem;color:var(--gr);line-height:1.85;font-weight:300;max-width:56ch;margin-bottom:3.5rem}
+.compl{display:flex;flex-direction:column}
+.compitem{display:grid;grid-template-columns:44px 1fr;gap:2rem;padding:1.4rem 0;border-bottom:1px solid rgba(11,19,43,.08);align-items:baseline}
+.compitem:last-child{border:none}
+.compn{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:rgba(192,58,123,.2);line-height:1;text-align:right;transition:color .2s}
+.compitem:hover .compn{color:rgba(192,58,123,.5)}
+.compnm{font-size:.75rem;font-weight:600;letter-spacing:.1em;color:var(--az);text-transform:uppercase}
+
+/* ════════════════
+   BIBLIOTECA
+════════════════ */
+#biblioteca{background:var(--mn)}
+#biblioteca .st{color:var(--of)}
+#biblioteca .sb{color:rgba(255,255,255,.45)}
+.bibg{display:grid;grid-template-columns:repeat(2,1fr);gap:5rem;margin-top:4rem}
+.bibct{font-size:.52rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mg);margin-bottom:1.4rem;display:block}
+.bibbs{display:flex;flex-direction:column}
+.bibb{padding:1rem 0;border-bottom:1px solid rgba(255,255,255,.08);display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:baseline}
+.bibb:first-child{border-top:1px solid rgba(255,255,255,.08)}
+.bibt{font-family:'Playfair Display',serif;font-size:.88rem;font-weight:600;color:var(--of)}
+.biba{font-size:.63rem;color:rgba(255,255,255,.36);font-weight:300;white-space:nowrap}
+
+/* ════════════════
+   AMANDA
+════════════════ */
+#amanda{background:var(--az)}
+.sg{display:grid;grid-template-columns:1fr 1.2fr;gap:6rem;align-items:start}
+.sim{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;display:block}
+.st2 .st{color:var(--of)}
+.stags{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.5rem 0}
+.stag{font-size:.56rem;font-weight:500;letter-spacing:.08em;color:var(--mg);border:1px solid rgba(192,58,123,.3);padding:.25rem .7rem}
+.sbio{font-size:.88rem;color:rgba(255,255,255,.52);line-height:1.9;font-weight:300;margin-bottom:1.2rem;max-width:50ch}
+.ssig{font-family:'Allura',cursive;font-size:2.4rem;color:rgba(255,255,255,.62);margin-top:1.8rem;line-height:1}
+
+/* ════════════════
+   CTA FINAL
+════════════════ */
+#comprar{background:var(--az);text-align:center;padding:8rem 5vw;position:relative;overflow:hidden}
+#comprar::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 52% 68% at 50% 108%,rgba(192,58,123,.13) 0%,transparent 65%);pointer-events:none}
+#comprar .sl{text-align:center}
+#comprar .st{color:var(--of);margin:0 auto 1rem;text-align:center}
+.ctasub{font-size:.88rem;color:rgba(255,255,255,.42);max-width:40ch;margin:0 auto 3rem;line-height:1.8;font-weight:300}
+.ctafs{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;margin-bottom:3rem}
+.ctaf{display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.ctafn{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:rgba(192,58,123,.38);line-height:1}
+.ctafl{font-size:.56rem;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase}
+.ctanote{margin-top:1.2rem;font-size:.58rem;color:rgba(255,255,255,.18);letter-spacing:.04em}
+
+/* ════════════════
+   CONTATO
+════════════════ */
+#contato{background:var(--gl);text-align:center;padding:6rem 5vw}
+#contato .sl{text-align:center}
+#contato .st{margin:0 auto 1rem;text-align:center}
+#contato .sb{margin:0 auto 2.5rem;text-align:center}
+
+/* FOOTER */
+footer{background:var(--az);padding:3rem 5vw}
+.ftt{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:2rem;margin-bottom:2.5rem}
+.ftb{font-family:'Playfair Display',serif;color:var(--of);font-size:.9rem;margin-bottom:.3rem}
+.ftbs{font-size:.54rem;color:rgba(255,255,255,.22);letter-spacing:.1em}
+.ftls{display:flex;gap:1.5rem;flex-wrap:wrap}
+.ftls a{font-size:.62rem;color:rgba(255,255,255,.3);letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
+.ftls a:hover{color:rgba(255,255,255,.6)}
+.ftbot{padding-top:2rem;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.ftc{font-size:.54rem;color:rgba(255,255,255,.15)}
+.fttag{font-family:'Playfair Display',serif;font-style:italic;font-size:.66rem;color:rgba(255,255,255,.18)}
+.fcta{position:fixed;bottom:2rem;right:2rem;z-index:150;opacity:0;pointer-events:none;transition:opacity .35s}
+.fcta.sh{opacity:1;pointer-events:auto}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+  .pql{grid-template-columns:1fr}.pql-full{grid-column:1}
+  .cap-grid{grid-template-columns:1fr}
+  .ci{border-right:none!important;padding-left:0!important;padding-right:0!important}
+  .ci:nth-last-child(-n+2){border-bottom:1px solid var(--gl)}
+  .ci:last-child{border-bottom:none}
+}
+@media(max-width:900px){
+  .nl{display:none}.hb{display:flex}
+  #hero{grid-template-columns:1fr 1fr}
+  .h-b{display:none}
+  .h-door{min-height:55vw}
+  .ht{font-size:clamp(3rem,10vw,5rem)}
+  .lg{grid-template-columns:1fr}
+  .lg-door{min-height:55vw}
+  .lg-txt{padding:3rem 0}
+  .ldg{grid-template-columns:1fr}
+  .ldc{border-right:none;border-bottom:1px solid var(--gl)}
+  .ldc:last-child{border-bottom:none}
+  .sg{grid-template-columns:1fr;gap:3rem}
+  .sim{max-width:300px}
+  .bibg{grid-template-columns:1fr;gap:2.5rem}
+  .cap-header{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  #hero{grid-template-columns:1fr}
+  .h-door{min-height:60vw}
+  .h-title{font-size:clamp(3.2rem,13vw,4.8rem)}
+  .exg{grid-template-columns:1fr}
+  .exb{border-right:none!important}
+  .exb:nth-last-child(-n+2){border-bottom:1px solid rgba(255,255,255,.05)}
+  .exb:last-child{border-bottom:none}
+  .fcta{bottom:1rem;right:1rem}
+}
+@media(prefers-reduced-motion:reduce){.fu{opacity:1;transform:none;transition:none}.fcta{transition:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nb">O Dia <em>Seguinte</em></div>
+  <div class="nl">
+    <a href="#livro">O livro</a>
+    <a href="#capitulos">Capítulos</a>
+    <a href="#autoconhecimento">Conteúdo</a>
+    <a href="#amanda">Amanda</a>
+    <a href="#contato">Contato</a>
+    <a href="#" class="nc btn bj">Quero o e-book</a>
+  </div>
+  <button class="hb" id="hbtn" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mm" id="mmenu">
+  <a href="#livro" class="ml">O livro</a>
+  <a href="#capitulos" class="ml">Capítulos</a>
+  <a href="#autoconhecimento" class="ml">Conteúdo</a>
+  <a href="#amanda" class="ml">Amanda</a>
+  <a href="#contato" class="ml">Contato</a>
+  <a href="#" class="ml bj">Quero o e-book</a>
+</div>
+
+<!-- ══════════════════════════
+     HERO — composição horizontal
+     Fiel à imagem de referência
+══════════════════════════ -->
+<section id="hero" aria-label="O Dia Seguinte">
+
+  <!-- COL A: título + linha + subtítulo + autora -->
+  <div class="h-a">
+    <div>
+      <h1 class="h-title">O DIA<br>SEGUINTE</h1>
+      <div class="h-line" aria-hidden="true"></div>
+      <p class="h-sub">Entre o fim de um ciclo<br>e a construção do próximo.</p>
+      <div class="h-cta">
+        <a href="#" class="btn bm bj">Quero o e-book</a>
+      </div>
+    </div>
+    <div class="h-author">
+      <div class="h-aname">Amanda Fernandes</div>
+      <div class="h-arole">People &amp; Culture | Desenvolvimento Humano</div>
+    </div>
+  </div>
+
+  <!-- COL B: PAUSA / REFLEXÃO / ESCOLHA / MOVIMENTO -->
+  <div class="h-b" aria-hidden="true">
+    <ul class="h-kw">
+      <li>PAUSA</li>
+      <li>REFLEXÃO</li>
+      <li>ESCOLHA</li>
+      <li>MOVIMENTO</li>
+    </ul>
+    <div class="h-kw-line"></div>
+    <p class="h-kw-txt">Mais que um livro.<br>Um convite para se reencontrar e construir o próximo capítulo da sua história.</p>
+  </div>
+
+  <!-- COL C: porta aberta SVG -->
+  <div class="h-door" aria-hidden="true">
+    <svg viewBox="0 0 580 680" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;display:block">
+  <defs>
+    <linearGradient id="dsk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#1a0d18"/>
+      <stop offset="12%"  stop-color="#3c1825"/>
+      <stop offset="28%"  stop-color="#7e3030" stop-opacity=".92"/>
+      <stop offset="44%"  stop-color="#b06040" stop-opacity=".82"/>
+      <stop offset="60%"  stop-color="#c89058" stop-opacity=".65"/>
+      <stop offset="76%"  stop-color="#9098a8" stop-opacity=".5"/>
+      <stop offset="100%" stop-color="#0c1828"/>
+    </linearGradient>
+    <linearGradient id="dfl" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#18202e"/>
+      <stop offset="50%"  stop-color="#10161e"/>
+      <stop offset="100%" stop-color="#06080e"/>
+    </linearGradient>
+    <linearGradient id="ddl" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#f8c878" stop-opacity=".95"/>
+      <stop offset="22%"  stop-color="#e89060" stop-opacity=".85"/>
+      <stop offset="55%"  stop-color="#a04838" stop-opacity=".45"/>
+      <stop offset="85%"  stop-color="#401820" stop-opacity=".18"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <radialGradient id="dglow" cx="50%" cy="45%" r="30%">
+      <stop offset="0%"   stop-color="#f8d088" stop-opacity=".38"/>
+      <stop offset="55%"  stop-color="#d07040" stop-opacity=".12"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <linearGradient id="dwl" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"  stop-color="#0c0a14"/>
+      <stop offset="100%" stop-color="#1a1625"/>
+    </linearGradient>
+    <linearGradient id="dwr" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"  stop-color="#181422"/>
+      <stop offset="100%" stop-color="#09070f"/>
+    </linearGradient>
+    <linearGradient id="dfg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#b05838" stop-opacity=".16"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <radialGradient id="dvg" cx="50%" cy="50%" r="68%">
+      <stop offset="0%"   stop-color="transparent"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,.52)"/>
+    </radialGradient>
+    <filter id="dblur"><feGaussianBlur stdDeviation="4"/></filter>
+    <filter id="dblur2"><feGaussianBlur stdDeviation="2.5"/></filter>
+    <clipPath id="dcp"><rect x="222" y="68" width="140" height="388"/></clipPath>
+  </defs>
+
+  <!-- Céu pôr do sol -->
+  <rect width="580" height="680" fill="url(#dsk)"/>
+  <rect width="580" height="680" fill="url(#dglow)"/>
+  <!-- Montanhas distantes – fundo -->
+  <path d="M60 295 C110 255,170 238,240 252 C295 264,340 244,400 250 C460 256,520 275,580 258 L580 370 L60 370Z"
+        fill="#2a1c2e" opacity=".38" filter="url(#dblur)"/>
+  <path d="M0 330 C70 280,148 260,228 274 C295 286,358 260,440 268 C510 275,550 296,580 280 L580 400 L0 400Z"
+        fill="#1e1428" opacity=".60" filter="url(#dblur2)"/>
+  <path d="M0 368 C65 318,140 298,218 312 C284 324,350 300,428 308 C500 314,545 334,580 318 L580 440 L0 440Z"
+        fill="#160e1e" opacity=".82"/>
+  <!-- Chão -->
+  <path d="M0 456 L580 456 L580 680 L0 680Z" fill="url(#dfl)"/>
+  <!-- Reflexo luz porta no chão -->
+  <path d="222 456 L362 456 L422 680 L162 680Z" fill="url(#dfg)"/>
+  <!-- Parede esquerda -->
+  <path d="M0 0 L222 68 L222 456 L0 680Z" fill="url(#dwl)"/>
+  <!-- Parede direita -->
+  <path d="M580 0 L362 68 L362 456 L580 680Z" fill="url(#dwr)"/>
+  <!-- Teto -->
+  <path d="M0 0 L580 0 L362 68 L222 68Z" fill="#0a0810" opacity=".88"/>
+  <!-- Marco da porta -->
+  <rect x="212" y="60" width="160" height="406" fill="#0c0a14" opacity=".92"/>
+  <!-- Interior da porta — luz -->
+  <rect x="222" y="68" width="140" height="388" fill="url(#ddl)"/>
+  <!-- Montanhas dentro da porta -->
+  <g clip-path="url(#dcp)">
+    <path d="M190 300 L242 240 L275 268 L310 228 L360 258 L360 456 L190 456Z" fill="#1e1428" opacity=".55"/>
+    <path d="M190 370 L230 318 L260 345 L300 295 L360 338 L360 456 L190 456Z" fill="#120e1c" opacity=".82"/>
+  </g>
+  <!-- Highlight marcos -->
+  <line x1="222" y1="68" x2="222" y2="456" stroke="rgba(255,218,140,.18)" stroke-width="1.5"/>
+  <line x1="362" y1="68" x2="362" y2="456" stroke="rgba(255,218,140,.10)" stroke-width="1"/>
+  <!-- Linha magenta no chão -->
+  <path d="M18 488 C120 482,230 476,290 476 C340 476,480 482,560 488"
+        stroke="#C03A7B" stroke-width="2" fill="none" stroke-linecap="round" opacity=".75"/>
+  <!-- Vinheta -->
+  <rect width="580" height="680" fill="url(#dvg)"/>
+</svg>
+    <div class="h-door-txt">
+      <span>NOVOS</span><span>CAPÍTULOS</span><span>TAMBÉM</span>
+      <span>FAZEM PARTE</span><span>DA SUA</span><span>HISTÓRIA.</span>
+    </div>
+    <div class="h-door-fq">
+      <p>O fim de um ciclo não define a sua história.</p>
+      <p>Ele marca o início do próximo capítulo.</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════
+     O LIVRO — mesma imagem da porta (crop diferente)
+══════════════════════════ -->
+<section id="livro" class="s fu">
+  <div class="sl">O e-book</div>
+  <div class="lg">
+    <!-- Porta reutilizada — crop vertical, foco na abertura -->
+    <div class="lg-door">
+      <svg viewBox="130 0 320 680" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;border-radius:1px">
+  <defs>
+    <linearGradient id="dsk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#1a0d18"/>
+      <stop offset="12%"  stop-color="#3c1825"/>
+      <stop offset="28%"  stop-color="#7e3030" stop-opacity=".92"/>
+      <stop offset="44%"  stop-color="#b06040" stop-opacity=".82"/>
+      <stop offset="60%"  stop-color="#c89058" stop-opacity=".65"/>
+      <stop offset="76%"  stop-color="#9098a8" stop-opacity=".5"/>
+      <stop offset="100%" stop-color="#0c1828"/>
+    </linearGradient>
+    <linearGradient id="dfl" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#18202e"/>
+      <stop offset="50%"  stop-color="#10161e"/>
+      <stop offset="100%" stop-color="#06080e"/>
+    </linearGradient>
+    <linearGradient id="ddl" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#f8c878" stop-opacity=".95"/>
+      <stop offset="22%"  stop-color="#e89060" stop-opacity=".85"/>
+      <stop offset="55%"  stop-color="#a04838" stop-opacity=".45"/>
+      <stop offset="85%"  stop-color="#401820" stop-opacity=".18"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <radialGradient id="dglow" cx="50%" cy="45%" r="30%">
+      <stop offset="0%"   stop-color="#f8d088" stop-opacity=".38"/>
+      <stop offset="55%"  stop-color="#d07040" stop-opacity=".12"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <linearGradient id="dwl" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"  stop-color="#0c0a14"/>
+      <stop offset="100%" stop-color="#1a1625"/>
+    </linearGradient>
+    <linearGradient id="dwr" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"  stop-color="#181422"/>
+      <stop offset="100%" stop-color="#09070f"/>
+    </linearGradient>
+    <linearGradient id="dfg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#b05838" stop-opacity=".16"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <radialGradient id="dvg" cx="50%" cy="50%" r="68%">
+      <stop offset="0%"   stop-color="transparent"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,.52)"/>
+    </radialGradient>
+    <filter id="dblur"><feGaussianBlur stdDeviation="4"/></filter>
+    <filter id="dblur2"><feGaussianBlur stdDeviation="2.5"/></filter>
+    <clipPath id="dcp"><rect x="222" y="68" width="140" height="388"/></clipPath>
+  </defs>
+
+  <!-- Céu pôr do sol -->
+  <rect width="580" height="680" fill="url(#dsk)"/>
+  <rect width="580" height="680" fill="url(#dglow)"/>
+  <!-- Montanhas distantes – fundo -->
+  <path d="M60 295 C110 255,170 238,240 252 C295 264,340 244,400 250 C460 256,520 275,580 258 L580 370 L60 370Z"
+        fill="#2a1c2e" opacity=".38" filter="url(#dblur)"/>
+  <path d="M0 330 C70 280,148 260,228 274 C295 286,358 260,440 268 C510 275,550 296,580 280 L580 400 L0 400Z"
+        fill="#1e1428" opacity=".60" filter="url(#dblur2)"/>
+  <path d="M0 368 C65 318,140 298,218 312 C284 324,350 300,428 308 C500 314,545 334,580 318 L580 440 L0 440Z"
+        fill="#160e1e" opacity=".82"/>
+  <!-- Chão -->
+  <path d="M0 456 L580 456 L580 680 L0 680Z" fill="url(#dfl)"/>
+  <!-- Reflexo luz porta no chão -->
+  <path d="222 456 L362 456 L422 680 L162 680Z" fill="url(#dfg)"/>
+  <!-- Parede esquerda -->
+  <path d="M0 0 L222 68 L222 456 L0 680Z" fill="url(#dwl)"/>
+  <!-- Parede direita -->
+  <path d="M580 0 L362 68 L362 456 L580 680Z" fill="url(#dwr)"/>
+  <!-- Teto -->
+  <path d="M0 0 L580 0 L362 68 L222 68Z" fill="#0a0810" opacity=".88"/>
+  <!-- Marco da porta -->
+  <rect x="212" y="60" width="160" height="406" fill="#0c0a14" opacity=".92"/>
+  <!-- Interior da porta — luz -->
+  <rect x="222" y="68" width="140" height="388" fill="url(#ddl)"/>
+  <!-- Montanhas dentro da porta -->
+  <g clip-path="url(#dcp)">
+    <path d="M190 300 L242 240 L275 268 L310 228 L360 258 L360 456 L190 456Z" fill="#1e1428" opacity=".55"/>
+    <path d="M190 370 L230 318 L260 345 L300 295 L360 338 L360 456 L190 456Z" fill="#120e1c" opacity=".82"/>
+  </g>
+  <!-- Highlight marcos -->
+  <line x1="222" y1="68" x2="222" y2="456" stroke="rgba(255,218,140,.18)" stroke-width="1.5"/>
+  <line x1="362" y1="68" x2="362" y2="456" stroke="rgba(255,218,140,.10)" stroke-width="1"/>
+  <!-- Linha magenta no chão -->
+  <path d="M18 488 C120 482,230 476,290 476 C340 476,480 482,560 488"
+        stroke="#C03A7B" stroke-width="2" fill="none" stroke-linecap="round" opacity=".75"/>
+  <!-- Vinheta -->
+  <rect width="580" height="680" fill="url(#dvg)"/>
+</svg>
+    </div>
+    <div class="lg-txt fu">
+      <div class="sl">Para quem está em transição</div>
+      <h2 class="st">E se o fim de um ciclo não fosse o fim da sua história?</h2>
+      <blockquote class="lq">"O fim de um ciclo não define a sua história. Ele apenas marca o início do próximo capítulo."</blockquote>
+      <p class="sb">O Dia Seguinte nasceu para acompanhar quem está atravessando uma transição profissional — especialmente quando o fim de um ciclo chega antes que estejamos preparados.<br><br>Um espaço de acolhimento, reflexão e construção do próximo capítulo.</p>
+      <div style="margin-top:2.5rem"><a href="#" class="btn bm bj">Quero o e-book</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUEM É -->
+<section id="para-quem" class="s fu">
+  <div class="sl">Para quem é</div>
+  <h2 class="st">Talvez você esteja vivendo um desses momentos.</h2>
+  <div class="pql fu">
+    <div class="pqi"><div class="pqn">01</div><p class="pqt">Seu ciclo profissional terminou e você ainda está absorvendo o que aconteceu.</p></div>
+    <div class="pqi"><div class="pqn">02</div><p class="pqt">Você ainda está tentando entender o que aconteceu — e por quê.</p></div>
+    <div class="pqi"><div class="pqn">03</div><p class="pqt">Você sabe que precisa seguir, mas ainda não sabe ao certo para onde ir.</p></div>
+    <div class="pqi"><div class="pqn">04</div><p class="pqt">Quer voltar ao mercado de uma forma mais consciente e alinhada com quem você se tornou.</p></div>
+    <div class="pqi pql-full"><div class="pqn">05</div><p class="pqt">Percebeu que não quer simplesmente repetir a carreira que já construiu. Quer escolher o próximo passo.</p></div>
+  </div>
+</section>
+
+<!-- CAPÍTULOS -->
+<section id="capitulos" class="s fu">
+  <div class="cap-header">
+    <div>
+      <div class="sl">A jornada</div>
+      <h2 class="st">Uma jornada em sete capítulos</h2>
+    </div>
+    <p class="cap-intro">Cada capítulo acompanha um momento específico da sua transição — do impacto inicial até a construção dos próximos passos.</p>
+  </div>
+  <div class="cil">Introdução — O projeto e para quem ele nasceu</div>
+  <div class="cap-grid fu">
+    <div class="ci"><div class="cin">01</div><div><div class="cit">Antes de tudo: coloque a máscara em você</div><p class="cid">Antes de atualizar o currículo ou procurar vagas, cuide de você. Como atravessar o impacto emocional de um desligamento com inteligência e compaixão.</p></div></div>
+    <div class="ci"><div class="cin">02</div><div><div class="cit">Quem você se tornou</div><p class="cid">Exercícios de autoconhecimento com DISC e Eneagrama. Entenda seus padrões, forças e o que não quer mais repetir.</p></div></div>
+    <div class="ci"><div class="cin">03</div><div><div class="cit">Defina o que você está procurando</div><p class="cid">Como transformar autoconhecimento em estratégia. Clareza sobre cargo, modelo de trabalho, networking e posicionamento.</p></div></div>
+    <div class="ci"><div class="cin">04</div><div><div class="cit">O profissional do futuro começa hoje</div><p class="cid">As competências mais valorizadas até 2030 e como desenvolvê-las para chegar mais preparado ao próximo ciclo.</p></div></div>
+    <div class="ci"><div class="cin">05</div><div><div class="cit">Aprendizado contínuo</div><p class="cid">Como estudar com estratégia durante a transição e transformar aprendizado em posicionamento real no mercado.</p></div></div>
+    <div class="ci"><div class="cin">06</div><div><div class="cit">Biblioteca do Dia Seguinte</div><p class="cid">15 livros selecionados para acompanhar cada fase — de reconstrução da confiança a hábitos, inteligência emocional e competências do mercado.</p></div></div>
+    <div class="ci"><div class="cin">07</div><div><div class="cit">Se prepare para novas entrevistas</div><p class="cid">Como falar da demissão com maturidade. Construa histórias, não respostas decoradas — e lembre-se que você também está avaliando a empresa.</p></div></div>
+  </div>
+  <div class="cfl">O próximo capítulo — Como começar, com mais consciência, o que vem depois</div>
+</section>
+
+<!-- TRECHOS -->
+<section id="trechos" aria-label="Trechos do e-book">
+  <div class="tr fu"><div class="trs">Do e-book</div><p class="trf">"O fim de um ciclo não define a sua história. <em>Ele apenas marca o início do próximo capítulo.</em>"</p></div>
+  <div class="tr fu"><div class="trs">Capítulo 1</div><p class="trf">"Você está vivendo uma transição, <em>não uma sentença.</em>"</p></div>
+  <div class="tr fu"><div class="trs">Capítulo 3</div><p class="trf">"Antes de contar a sua nova história, você precisa entender <em>qual será o primeiro capítulo dela.</em>"</p></div>
+  <div class="tr fu"><div class="trs">Capítulo 3</div><p class="trf">"Quantidade não substitui estratégia. Trata-se de se candidatar <em>às vagas certas para você.</em>"</p></div>
+  <div class="tr fu"><div class="trs">Capítulo 4</div><p class="trf">"O profissional do futuro não é aquele que possui todas as respostas. É aquele que continua <em>fazendo boas perguntas.</em>"</p></div>
+</section>
+
+<!-- EU LEVO / DESENVOLVO / DEIXO -->
+<section id="autoconhecimento" class="s fu">
+  <div class="sl">Capítulo 2</div>
+  <h2 class="st">Quem você se tornou</h2>
+  <p class="sb">Uma transição pode ser uma oportunidade rara de olhar para si com honestidade — e escolher o que levar para o próximo ciclo.</p>
+  <div class="ldg fu">
+    <div class="ldc"><span class="ldtag">EU LEVO</span><h3 class="ldh">O que me fortalece</h3><p class="ldb">Competências, comportamentos, relações e aprendizados que quero continuar fortalecendo. O que ficou de melhor dessa trajetória — e vai comigo para o próximo capítulo.</p></div>
+    <div class="ldc"><span class="ldtag">EU DESENVOLVO</span><h3 class="ldh">O que ainda pode crescer</h3><p class="ldb">Comportamentos e habilidades que percebi que preciso desenvolver para chegar ao próximo nível. Gaps que identifico com honestidade e com intenção de mudança.</p></div>
+    <div class="ldc"><span class="ldtag">EU DEIXO</span><h3 class="ldh">O que fica para trás</h3><p class="ldb">Padrões, ambientes, comportamentos e escolhas que não quero mais repetir. Saber o que deixar para trás é tão importante quanto saber para onde ir.</p></div>
+  </div>
+</section>
+
+<!-- EXERCÍCIOS -->
+<section id="exercicios" class="s fu">
+  <div class="sl">Reflexão prática</div>
+  <h2 class="st" style="color:var(--of)">Mais do que ler.<br>Parar para pensar.</h2>
+  <p style="font-size:.88rem;color:rgba(255,255,255,.42);line-height:1.9;font-weight:300;max-width:52ch;margin-bottom:0">O e-book inclui exercícios que transformam leitura em autoconhecimento real.</p>
+  <div class="exg fu">
+    <div class="exb"><span class="excat">Sobre minha trajetória</span><div class="exqs"><p class="exq">"O que eu mais gostava de fazer no meu último trabalho?"</p><p class="exq">"Em quais momentos entreguei meus melhores resultados?"</p><p class="exq">"Quais conquistas me deram mais orgulho?"</p></div></div>
+    <div class="exb"><span class="excat">Sobre meu ambiente</span><div class="exqs"><p class="exq">"Em quais ambientes consigo prosperar?"</p><p class="exq">"Que tipo de liderança potencializa o meu trabalho?"</p><p class="exq">"Quais comportamentos de uma empresa não quero mais normalizar?"</p></div></div>
+    <div class="exb"><span class="excat">Sobre mim</span><div class="exqs"><p class="exq">"Quais características profissionais quero preservar?"</p><p class="exq">"Que padrões venho repetindo na minha carreira?"</p><p class="exq">"O que eu tolerava antes e hoje não aceitaria mais?"</p></div></div>
+    <div class="exb"><span class="excat">Sobre o futuro</span><div class="exqs"><p class="exq">"O que quero levar comigo para o próximo ciclo?"</p><p class="exq">"O que preciso deixar para trás?"</p><p class="exq">"Que profissional quero me tornar nos próximos anos?"</p></div></div>
+  </div>
+</section>
+
+<!-- COMPETÊNCIAS -->
+<section id="futuro" class="s fu">
+  <div class="sl">Capítulo 4</div>
+  <h2 class="st">O profissional do futuro começa hoje</h2>
+  <p class="ci2">O mercado muda. Tecnologias mudam. Ferramentas mudam.<br>E algumas competências continuam essenciais.</p>
+  <div class="compl fu">
+    <div class="compitem"><div class="compn">01</div><div class="compnm">Pensamento analítico</div></div>
+    <div class="compitem"><div class="compn">02</div><div class="compnm">Resiliência, flexibilidade e agilidade</div></div>
+    <div class="compitem"><div class="compn">03</div><div class="compnm">Liderança e influência social</div></div>
+    <div class="compitem"><div class="compn">04</div><div class="compnm">Pensamento criativo</div></div>
+    <div class="compitem"><div class="compn">05</div><div class="compnm">Motivação e autoconhecimento</div></div>
+    <div class="compitem"><div class="compn">06</div><div class="compnm">Letramento tecnológico</div></div>
+    <div class="compitem"><div class="compn">07</div><div class="compnm">Empatia e escuta ativa</div></div>
+    <div class="compitem"><div class="compn">08</div><div class="compnm">Curiosidade e aprendizagem ao longo da vida</div></div>
+    <div class="compitem"><div class="compn">09</div><div class="compnm">Gestão de talentos</div></div>
+    <div class="compitem"><div class="compn">10</div><div class="compnm">Orientação para serviço e cliente</div></div>
+  </div>
+</section>
+
+<!-- BIBLIOTECA -->
+<section id="biblioteca" class="s fu">
+  <div class="sl">Capítulo 6</div>
+  <h2 class="st">Biblioteca do Dia Seguinte</h2>
+  <p class="sb">15 livros selecionados para cada fase da jornada — uma curadoria pensada para acompanhar este momento.</p>
+  <div class="bibg fu">
+    <div>
+      <span class="bibct">Reconstruir a confiança e a mentalidade</span>
+      <div class="bibbs">
+        <div class="bibb"><div class="bibt">Mindset</div><div class="biba">Carol S. Dweck</div></div>
+        <div class="bibb"><div class="bibt">A Coragem de Ser Imperfeito</div><div class="biba">Brené Brown</div></div>
+        <div class="bibb"><div class="bibt">O Jeito Certo de Errar</div><div class="biba">Amy Edmondson</div></div>
+        <div class="bibb"><div class="bibt">Comece pelo Porquê</div><div class="biba">Simon Sinek</div></div>
+        <div class="bibb"><div class="bibt">A Montanha é Você</div><div class="biba">Brianna Wiest</div></div>
+      </div>
+      <span class="bibct" style="display:block;margin-top:2.5rem">Inteligência emocional</span>
+      <div class="bibbs">
+        <div class="bibb"><div class="bibt">Inteligência Emocional</div><div class="biba">Daniel Goleman</div></div>
+        <div class="bibb"><div class="bibt">O Jeito Harvard de Ser Feliz</div><div class="biba">Shawn Achor</div></div>
+        <div class="bibb"><div class="bibt">A Geração Ansiosa</div><div class="biba">Jonathan Haidt</div></div>
+      </div>
+    </div>
+    <div>
+      <span class="bibct">Hábitos e rotina</span>
+      <div class="bibbs">
+        <div class="bibb"><div class="bibt">Hábitos Atômicos</div><div class="biba">James Clear</div></div>
+        <div class="bibb"><div class="bibt">O Poder do Hábito</div><div class="biba">Charles Duhigg</div></div>
+        <div class="bibb"><div class="bibt">Essencialismo</div><div class="biba">Greg McKeown</div></div>
+        <div class="bibb"><div class="bibt">A Única Coisa</div><div class="biba">Gary Keller</div></div>
+      </div>
+      <span class="bibct" style="display:block;margin-top:2.5rem">Competências do mercado</span>
+      <div class="bibbs">
+        <div class="bibb"><div class="bibt">Power Skills</div><div class="biba">Dafna Blaschkauer</div></div>
+        <div class="bibb"><div class="bibt">Antifrágil</div><div class="biba">Nassim Taleb</div></div>
+        <div class="bibb"><div class="bibt">O Poder da Autorresponsabilidade</div><div class="biba">Eduardo Ferreira</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE AMANDA -->
+<section id="amanda" class="s">
+  <div class="sg">
+    <div class="fu">
+      <img class="sim" src="data:image/png;base64,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" alt="Amanda Fernandes — RH Business Partner, People &amp; Culture e Desenvolvimento Humano" loading="lazy">
+    </div>
+    <div class="st2 fu">
+      <div class="sl" style="color:var(--mg)">Quem escreveu O Dia Seguinte?</div>
+      <h2 class="st">Amanda Fernandes</h2>
+      <div class="stags">
+        <span class="stag">RH Business Partner</span>
+        <span class="stag">People &amp; Culture</span>
+        <span class="stag">Desenvolvimento Humano</span>
+      </div>
+      <p class="sbio">Com anos de atuação em RH, acompanhando admissões, promoções, planos de carreira e desligamentos, Amanda viveu os dois lados da mesa. Quando chegou a sua vez, percebeu algo importante: falamos muito sobre como entrar em uma empresa, mas quase não falamos sobre o que acontece quando precisamos sair dela.</p>
+      <p class="sbio">Foi pensando nisso que nasceu O Dia Seguinte — um projeto para ajudar pessoas a atravessarem esse momento com mais clareza, esperança e confiança.</p>
+      <div class="ssig">Amanda Fernandes</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="comprar" class="fu">
+  <div class="sl">Comece hoje</div>
+  <h2 class="st">O próximo capítulo ainda não foi escrito.</h2>
+  <p class="ctasub">Comece essa próxima etapa com mais consciência, clareza e confiança.</p>
+  <div class="ctafs">
+    <div class="ctaf"><div class="ctafn">7</div><div class="ctafl">Capítulos</div></div>
+    <div class="ctaf"><div class="ctafn">15</div><div class="ctafl">Livros indicados</div></div>
+    <div class="ctaf"><div class="ctafn">PDF</div><div class="ctafl">Download imediato</div></div>
+  </div>
+  <a href="#" class="btn bm bml bj">QUERO O E-BOOK</a>
+  <p class="ctanote">Pagamento seguro · Acesso imediato</p>
+</section>
+
+<!-- CONTATO -->
+<section id="contato" class="ss fu">
+  <div class="sl">Ficou com alguma dúvida?</div>
+  <h2 class="st">Fale com a Amanda</h2>
+  <p class="sb">Se quiser saber mais sobre o e-book antes de começar a leitura, fale diretamente com a Amanda.</p>
+  <div style="margin-top:2rem"><button class="btn bc" onclick="openMail()">FALAR COM AMANDA</button></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ftt">
+    <div>
+      <div class="ftb">O Dia Seguinte</div>
+      <div class="ftbs">Amanda Fernandes · People &amp; Culture · Desenvolvimento Humano</div>
+    </div>
+    <div class="ftls">
+      <a href="#livro">O livro</a>
+      <a href="#capitulos">Capítulos</a>
+      <a href="#amanda">Amanda</a>
+      <a href="#contato">Contato</a>
+      <a href="#" class="bj" style="color:var(--mg)">Quero o e-book</a>
+    </div>
+  </div>
+  <div class="ftbot">
+    <span class="ftc">© Amanda Fernandes. Todos os direitos reservados.</span>
+    <span class="fttag">Entre o fim de um ciclo e a construção do próximo.</span>
+  </div>
+</footer>
+
+<div class="fcta" id="fcta">
+  <a href="#" class="btn bm bj" style="font-size:.65rem;padding:.68rem 1.3rem">QUERO O E-BOOK</a>
+</div>
+
+<script>
+const BUY_LINK = "COLOCAR_LINK_DE_COMPRA_AQUI";
+const CONTACT_EMAIL = "Amandaasfernandes.24@gmail.com";
+
+function openMail() {
+  const s = encodeURIComponent("D\u00FAvida sobre o e-book O Dia Seguinte");
+  const b = encodeURIComponent(
+    "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n" +
+    "Ol\u00E1, Amanda!\n\nEstou conhecendo o e-book O Dia Seguinte\ne gostaria de tirar uma d\u00FAvida.\n\n" +
+    "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n" +
+    "MINHA D\u00DAVIDA\n\n[escreva sua d\u00FAvida aqui]\n\n" +
+    "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\nObrigada!"
+  );
+  window.location.href = `mailto:${CONTACT_EMAIL}?subject=${s}&body=${b}`;
+}
+
+document.querySelectorAll('.bj').forEach(el => {
+  el.addEventListener('click', e => {
+    e.preventDefault();
+    if (BUY_LINK && BUY_LINK !== "COLOCAR_LINK_DE_COMPRA_AQUI") {
+      window.open(BUY_LINK,'_blank','noopener');
+    } else {
+      document.getElementById('comprar').scrollIntoView({behavior:'smooth'});
+    }
+  });
+});
+
+const hbtn = document.getElementById('hbtn');
+const mm = document.getElementById('mmenu');
+hbtn.addEventListener('click',()=>{
+  const o=mm.classList.toggle('o');
+  hbtn.classList.toggle('o',o);
+  hbtn.setAttribute('aria-expanded',o);
+});
+mm.querySelectorAll('.ml').forEach(a=>{
+  a.addEventListener('click',()=>{
+    mm.classList.remove('o');hbtn.classList.remove('o');
+    hbtn.setAttribute('aria-expanded','false');
+  });
+});
+
+const hero=document.getElementById('hero');
+const fcta=document.getElementById('fcta');
+const fus=document.querySelectorAll('.fu');
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');obs.unobserve(e.target);}});
+},{threshold:.1});
+fus.forEach(el=>obs.observe(el));
+const ho=new IntersectionObserver(es=>{
+  es.forEach(e=>{fcta.classList.toggle('sh',!e.isIntersecting);});
+},{threshold:.05});
+if(hero)ho.observe(hero);
+</script>
+</body>
+</html>
